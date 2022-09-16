@@ -1,6 +1,6 @@
 # CreateWallet
 
-🔑 Create Multiple Wallets Within A Second With Ethers.js
+🔑 Create Multiple Wallets Within A Second With ethers.js
 
 ## Key Function
 
