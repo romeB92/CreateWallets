@@ -4,34 +4,36 @@ const { ethers } = require("ethers");
 //https://github.com/0xdaebak
 
 //Generate Single Wallet
-let singleWallet = () => {
-    let createWallet = ethers.Wallet.createRandom();
+// let singleWallet = () => {
+//     let createWallet = ethers.Wallet.createRandom();
 
-    console.log('address:', createWallet.address)
-    console.log('mnemonic:', createWallet.mnemonic.phrase)
-    console.log('privateKey:', createWallet.privateKey)
+//     console.log('address:', createWallet.address)
+//     console.log('mnemonic:', createWallet.mnemonic.phrase)
+//     console.log('privateKey:', createWallet.privateKey)
 
-}
+// }
 
 //Generate Multi Wallet
-let multiWallet = () =>{
+const fs = require('fs');
 
-    //create 5 wallets
-    let walletCount = 5;
-
-    //wallet Array
+let multiWallet = () => {
+    let walletCount = 100;
     let wallets = [];
 
     for (let i = 0; i < walletCount; i++) {
         let createWallet = ethers.Wallet.createRandom();
-        wallets.push(createWallet);
+        wallets.push(`Wallet ${i + 1}:\nAddress: ${createWallet.address}\nPrivateKey: ${createWallet.privateKey}\nMnemonic: ${createWallet.mnemonic.phrase}\n\n`);
     }
 
-    console.log(wallets[0].address);
-    console.log(wallets[1].address);
-    console.log(wallets[2].address);
-    console.log(wallets[3].address);
-    console.log(wallets[4].address);
-
+    fs.writeFile('wallets.txt', wallets.join(''), (err) => {
+        if (err) {
+            console.error('Error writing to file:', err);
+            return;
+        }
+        console.log('Wallets successfully saved to wallets.txt');
+    });
 }
-singleWallet();
+
+multiWallet();
+
+
